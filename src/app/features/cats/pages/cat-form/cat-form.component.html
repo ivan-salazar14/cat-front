@@ -1,0 +1,91 @@
+<div class="cat-form-container">
+  <div class="cat-form-card">
+    <h1>{{ isEditMode() ? 'Edit Cat' : 'Add New Cat' }}</h1>
+
+    <form [formGroup]="catForm" (ngSubmit)="onSubmit()" class="cat-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="name" 
+          placeholder="Enter cat's name"
+          [class.error]="name?.invalid && name?.touched">
+        <span *ngIf="name?.invalid && name?.touched" class="error-message">
+          <span *ngIf="name?.errors?.['required']">Name is required</span>
+          <span *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters</span>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="breed">Breed</label>
+        <input 
+          type="text" 
+          id="breed" 
+          formControlName="breed" 
+          placeholder="Enter cat's breed"
+          [class.error]="breed?.invalid && breed?.touched">
+        <span *ngIf="breed?.invalid && breed?.touched" class="error-message">
+          <span *ngIf="breed?.errors?.['required']">Breed is required</span>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age (years)</label>
+        <input 
+          type="number" 
+          id="age" 
+          formControlName="age" 
+          placeholder="Enter cat's age"
+          min="0"
+          max="30"
+          [class.error]="age?.invalid && age?.touched">
+        <span *ngIf="age?.invalid && age?.touched" class="error-message">
+          <span *ngIf="age?.errors?.['required']">Age is required</span>
+          <span *ngIf="age?.errors?.['min']">Age must be at least 0</span>
+          <span *ngIf="age?.errors?.['max']">Age cannot exceed 30</span>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          placeholder="Enter a description (optional)"
+          rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="imageUrl">Image URL</label>
+        <input 
+          type="url" 
+          id="imageUrl" 
+          formControlName="imageUrl" 
+          placeholder="https://example.com/cat-image.jpg"
+          [class.error]="imageUrl?.invalid && imageUrl?.touched">
+        <span *ngIf="imageUrl?.invalid && imageUrl?.touched" class="error-message">
+          <span *ngIf="imageUrl?.errors?.['required']">Image URL is required</span>
+          <span *ngIf="imageUrl?.errors?.['pattern']">Please enter a valid URL</span>
+        </span>
+      </div>
+
+      <div *ngIf="error()" class="alert alert-error">
+        {{ error() }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="goBack()">
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-primary" 
+          [disabled]="catForm.invalid || loading()">
+          <span *ngIf="loading()">Saving...</span>
+          <span *ngIf="!loading()">{{ isEditMode() ? 'Update Cat' : 'Create Cat' }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

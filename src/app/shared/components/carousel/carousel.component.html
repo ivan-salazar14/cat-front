@@ -1,0 +1,41 @@
+<div class="carousel-container">
+  <div class="carousel-slides">
+    <div 
+      *ngFor="let item of items; let i = index"
+      class="carousel-slide"
+      [class.active]="i === currentIndex()"
+      (click)="onItemClick(item)">
+      <img [src]="item.imageUrl" [alt]="item.title || ''" class="carousel-image">
+      <div class="carousel-caption" *ngIf="item.title || item.description">
+        <h3 *ngIf="item.title">{{ item.title }}</h3>
+        <p *ngIf="item.description">{{ item.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <button 
+    *ngIf="showArrows"
+    class="carousel-arrow carousel-arrow-prev"
+    (click)="previous()"
+    type="button">
+    &#8249;
+  </button>
+
+  <button 
+    *ngIf="showArrows"
+    class="carousel-arrow carousel-arrow-next"
+    (click)="next()"
+    type="button">
+    &#8250;
+  </button>
+
+  <div *ngIf="showIndicators" class="carousel-indicators">
+    <button 
+      *ngFor="let item of items; let i = index"
+      class="carousel-indicator"
+      [class.active]="i === currentIndex()"
+      (click)="goTo(i)"
+      type="button">
+    </button>
+  </div>
+</div>

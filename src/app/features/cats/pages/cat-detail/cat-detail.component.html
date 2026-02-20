@@ -1,0 +1,32 @@
+<div class="cat-detail-container">
+  <div *ngIf="loading()" class="loading">
+    Loading cat details...
+  </div>
+
+  <div *ngIf="error()" class="alert alert-error">
+    {{ error() }}
+  </div>
+
+  <div *ngIf="cat() && !loading()" class="cat-detail">
+    <button class="btn btn-back" (click)="goBack()">
+      ← Back to Cats
+    </button>
+
+    <div class="cat-header">
+      <img [src]="cat()!.imageUrl" [alt]="cat()!.name" class="cat-image">
+      <div class="cat-info">
+        <h1>{{ cat()!.name }}</h1>
+        <p class="breed">{{ cat()!.breed }}</p>
+        <p class="age">{{ cat()!.age }} years old</p>
+        <p *ngIf="cat()!.description" class="description">
+          {{ cat()!.description }}
+        </p>
+      </div>
+    </div>
+
+    <div class="cat-actions">
+      <button class="btn btn-primary" (click)="editCat()">Edit Cat</button>
+      <button class="btn btn-danger" (click)="deleteCat()">Delete Cat</button>
+    </div>
+  </div>
+</div>

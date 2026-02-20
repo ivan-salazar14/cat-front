@@ -1,0 +1,27 @@
+{
+  "name": "cat-front",
+  "version": "1.0.0",
+  "description": "frontend project for a lovely api cat",
+  "homepage": "https://github.com/ivan-salazar14/cat-front#readme",
+  "bugs": {
+    "url": "https://github.com/ivan-salazar14/cat-front/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan-salazar14/cat-front.git"
+  },
+  "license": "ISC",
+  "author": "Ivan SalazaR",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "dependencies": {
+    "@angular/common": "^19.2.18",
+    "@angular/core": "^19.2.18",
+    "@angular/forms": "^19.2.18",
+    "@angular/platform-browser": "^19.2.18",
+    "@angular/router": "^19.2.18"
+  }
+}
