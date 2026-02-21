@@ -2,23 +2,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th 
-          *ngFor="let column of columns"
-          [class.sortable]="column.sortable && showSorting"
+        <th *ngFor="let column of columns()" [class.sortable]="column.sortable && showSorting()"
           (click)="column.sortable && onSort(column.key)">
           {{ column.header }}
-          <span *ngIf="column.sortable && showSorting" class="sort-icon">
+          <span *ngIf="column.sortable && showSorting()" class="sort-icon">
             {{ getSortIcon(column.key) }}
           </span>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr 
-        *ngFor="let row of paginatedData()"
-        (click)="onRowClick(row)"
-        class="table-row">
-        <td *ngFor="let column of columns">
+      <tr *ngFor="let row of paginatedData()" (click)="onRowClick(row)" class="table-row">
+        <td *ngFor="let column of columns()">
           <ng-container *ngIf="column.template; else defaultValue">
             <ng-container *ngTemplateOutlet="column.template; context: { $implicit: row }"></ng-container>
           </ng-container>
@@ -27,36 +22,26 @@
           </ng-template>
         </td>
       </tr>
-      <tr *ngIf="data.length === 0">
-        <td [attr.colspan]="columns.length" class="empty-message">
-          {{ emptyMessage }}
+      <tr *ngIf="(data() || []).length === 0">
+        <td [attr.colspan]="columns().length" class="empty-message">
+          {{ emptyMessage() }}
         </td>
       </tr>
     </tbody>
   </table>
 
-  <div *ngIf="showPagination && totalPages() > 1" class="pagination">
-    <button 
-      class="pagination-btn"
-      [disabled]="currentPage() === 1"
-      (click)="onPageChange(currentPage() - 1)"
+  <div *ngIf="showPagination() && totalPages() > 1" class="pagination">
+    <button class="pagination-btn" [disabled]="currentPage() === 1" (click)="onPageChange(currentPage() - 1)"
       type="button">
       Previous
     </button>
-    
-    <button 
-      *ngFor="let page of pages"
-      class="pagination-btn pagination-page"
-      [class.active]="page === currentPage()"
-      (click)="onPageChange(page)"
-      type="button">
+
+    <button *ngFor="let page of pages" class="pagination-btn pagination-page" [class.active]="page === currentPage()"
+      (click)="onPageChange(page)" type="button">
       {{ page }}
     </button>
-    
-    <button 
-      class="pagination-btn"
-      [disabled]="currentPage() === totalPages()"
-      (click)="onPageChange(currentPage() + 1)"
+
+    <button class="pagination-btn" [disabled]="currentPage() === totalPages()" (click)="onPageChange(currentPage() + 1)"
       type="button">
       Next
     </button>

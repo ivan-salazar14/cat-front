@@ -1,0 +1,32 @@
+<div class="login-container">
+    <div class="login-card">
+        <h1 class="login-title">User Profile</h1>
+        <p class="login-subtitle">Your account information</p>
+
+        <div class="profile-info" *ngIf="user() as userData">
+            <div class="info-group">
+                <label>Username</label>
+                <p>{{ userData.username }}</p>
+            </div>
+
+            <div class="info-group">
+                <label>Email</label>
+                <p>{{ userData.email }}</p>
+            </div>
+
+            <div class="info-group">
+                <label>Member Since</label>
+                <p>{{ userData.createdAt | date:'mediumDate' }}</p>
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn btn-primary" routerLink="/cats">Back to Cats</button>
+                <button class="btn btn-outline" (click)="logout()">Sign Out</button>
+            </div>
+        </div>
+
+        <div *ngIf="!user()" class="alert alert-error">
+            No user data found. Please login again.
+        </div>
+    </div>
+</div>

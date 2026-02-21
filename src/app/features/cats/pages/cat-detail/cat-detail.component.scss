@@ -1,129 +1,150 @@
-.cat-detail-container {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+.cats-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.loading {
-  text-align: center;
-  padding: 3rem;
-  color: #666;
-}
-
-.alert {
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  
-  &.alert-error {
-    background: #fee;
-    color: #c00;
-    border: 1px solid #fcc;
-  }
-}
-
-.cat-detail {
+.cats-card {
   background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
 }
 
-.btn-back {
-  background: none;
-  border: none;
-  color: #667eea;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 1rem;
-  
-  &:hover {
-    text-decoration: underline;
-  }
+.cats-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
 }
 
-.cat-header {
-  display: flex;
-  gap: 2rem;
-  padding: 1rem 2rem 2rem;
-  
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
-}
+.user-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
 
-.cat-image {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 12px;
-  
-  @media (max-width: 600px) {
-    width: 100%;
-    height: auto;
-  }
-}
-
-.cat-info {
-  flex: 1;
-  
-  h1 {
-    margin: 0 0 0.5rem;
-    font-size: 2rem;
-    color: #1a1a2e;
-  }
-  
-  .breed {
-    margin: 0 0 0.5rem;
+  .profile-link {
     color: #667eea;
-    font-weight: 500;
-    font-size: 1.25rem;
-  }
-  
-  .age {
-    margin: 0 0 1rem;
-    color: #666;
-  }
-  
-  .description {
-    margin: 0;
-    color: #333;
-    line-height: 1.6;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(102, 126, 234, 0.1);
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(102, 126, 234, 0.2);
+    }
   }
 }
 
-.cat-actions {
+.cats-title {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  letter-spacing: -0.02em;
+}
+
+.cats-subtitle {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.filter-section {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
   display: flex;
-  gap: 1rem;
-  padding: 1rem 2rem 2rem;
-  border-top: 1px solid #eee;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+  }
+}
+
+.form-select,
+.form-control {
+  padding: 0.75rem 1rem;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  }
+}
+
+.search-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+
+  .form-control {
+    flex: 1;
+  }
 }
 
 .btn {
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  
+  white-space: nowrap;
+
   &.btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    
+
     &:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
-  
-  &.btn-danger {
-    background: #e74c3c;
-    color: white;
-    
-    &:hover {
-      background: #c0392b;
-    }
-  }
+}
+
+.gallery-section {
+  margin-bottom: 2.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table-section {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid #eee;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
 }

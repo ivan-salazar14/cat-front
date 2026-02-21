@@ -1,15 +1,34 @@
-<div class="container mt-4">
-      <select class="form-select" (change)="onBreedSelect($event)">
-        <option value="">Selecciona una raza...</option>
-        <option *ngFor="let b of breeds$ | async" [value]="b.id">{{b.name}}</option>
-      </select>
+<div class="cats-container">
+  <div class="cats-card">
+    <header class="cats-header">
+      <div class="user-nav">
+        <a routerLink="/auth/profile" class="profile-link">My Profile</a>
+      </div>
+      <h1 class="cats-title">Cat Explorer</h1>
+      <p class="cats-subtitle">Discover different cat breeds</p>
+    </header>
 
-      <app-carousel [items]="selectedImages$ | async"></app-carousel>
+    <div class="filter-section">
+      <div class="form-group">
+        <label for="breedSelect">Select Breed</label>
+        <select id="breedSelect" class="form-select" (change)="onBreedSelect($event)">
+          <option value="">Selecciona una raza...</option>
+          <option *ngFor="let b of breeds$ | async" [value]="b.id">{{b.name}}</option>
+        </select>
+      </div>
 
-      <div class="input-group my-4">
+      <div class="search-group">
         <input #searchBox type="text" class="form-control" placeholder="Buscar raza...">
         <button class="btn btn-primary" (click)="search(searchBox.value)">Buscar</button>
       </div>
-
-      <app-table [data]="dataSource$ | async"></app-table>
     </div>
+
+    <div class="gallery-section" *ngIf="(selectedImages$ | async)?.length">
+      <app-carousel [items]="selectedImages$ | async"></app-carousel>
+    </div>
+
+    <div class="table-section mt-4">
+      <app-table [data]="dataSource$ | async" [columns]="tableColumns"></app-table>
+    </div>
+  </div>
+</div>

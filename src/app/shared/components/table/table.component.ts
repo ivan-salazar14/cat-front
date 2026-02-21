@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, TemplateRef, ContentChild, signal, computed } from '@angular/core';
+import { Component, input, Output, EventEmitter, TemplateRef, ContentChild, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface TableColumn<T> {
@@ -21,12 +21,12 @@ export interface TableSortEvent {
   styleUrl: './table.component.scss'
 })
 export class TableComponent<T> {
-  @Input() data: T[] = [];
-  @Input() columns: TableColumn<T>[] = [];
-  @Input() pageSize = 10;
-  @Input() showPagination = true;
-  @Input() showSorting = true;
-  @Input() emptyMessage = 'No data available';
+  data = input<T[]>([]);
+  columns = input<TableColumn<T>[]>([]);
+  pageSize = input(10);
+  showPagination = input(true);
+  showSorting = input(true);
+  emptyMessage = input('No data available');
 
   @Output() rowClick = new EventEmitter<T>();
   @Output() sortChange = new EventEmitter<TableSortEvent>();
@@ -42,11 +42,12 @@ export class TableComponent<T> {
   readonly sortKey = this.sortKeySignal.asReadonly();
   readonly sortDirection = this.sortDirectionSignal.asReadonly();
 
-  readonly totalPages = computed(() => Math.ceil(this.data.length / this.pageSize));
+  readonly totalPages = computed(() => Math.ceil((this.data() || []).length / this.pageSize()));
   readonly paginatedData = computed(() => {
-    const start = (this.currentPageSignal() - 1) * this.pageSize;
-    const end = start + this.pageSize;
-    return this.data.slice(start, end);
+    const data = this.data() || [];
+    const start = (this.currentPageSignal() - 1) * this.pageSize();
+    const end = start + this.pageSize();
+    return data.slice(start, end);
   });
 
   onRowClick(row: T): void {
@@ -54,7 +55,7 @@ export class TableComponent<T> {
   }
 
   onSort(key: string): void {
-    if (!this.showSorting) return;
+    if (!this.showSorting()) return;
 
     if (this.sortKeySignal() === key) {
       this.sortDirectionSignal.update(dir => dir === 'asc' ? 'desc' : 'asc');
@@ -94,14 +95,12 @@ export class TableComponent<T> {
     const total = this.totalPages();
     const current = this.currentPageSignal();
     const pages: number[] = [];
-    
     const start = Math.max(1, current - 2);
     const end = Math.min(total, current + 2);
-    
     for (let i = start; i <= end; i++) {
       pages.push(i);
     }
-    
+
     return pages;
   }
 }
