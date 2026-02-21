@@ -1,32 +1,15 @@
-<div class="cat-detail-container">
-  <div *ngIf="loading()" class="loading">
-    Loading cat details...
-  </div>
+<div class="container mt-4">
+      <select class="form-select" (change)="onBreedSelect($event)">
+        <option value="">Selecciona una raza...</option>
+        <option *ngFor="let b of breeds$ | async" [value]="b.id">{{b.name}}</option>
+      </select>
 
-  <div *ngIf="error()" class="alert alert-error">
-    {{ error() }}
-  </div>
+      <app-carousel [items]="selectedImages$ | async"></app-carousel>
 
-  <div *ngIf="cat() && !loading()" class="cat-detail">
-    <button class="btn btn-back" (click)="goBack()">
-      ← Back to Cats
-    </button>
-
-    <div class="cat-header">
-      <img [src]="cat()!.imageUrl" [alt]="cat()!.name" class="cat-image">
-      <div class="cat-info">
-        <h1>{{ cat()!.name }}</h1>
-        <p class="breed">{{ cat()!.breed }}</p>
-        <p class="age">{{ cat()!.age }} years old</p>
-        <p *ngIf="cat()!.description" class="description">
-          {{ cat()!.description }}
-        </p>
+      <div class="input-group my-4">
+        <input #searchBox type="text" class="form-control" placeholder="Buscar raza...">
+        <button class="btn btn-primary" (click)="search(searchBox.value)">Buscar</button>
       </div>
-    </div>
 
-    <div class="cat-actions">
-      <button class="btn btn-primary" (click)="editCat()">Edit Cat</button>
-      <button class="btn btn-danger" (click)="deleteCat()">Delete Cat</button>
+      <app-table [data]="dataSource$ | async"></app-table>
     </div>
-  </div>
-</div>

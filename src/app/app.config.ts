@@ -1,6 +1,5 @@
 import {
   ApplicationConfig,
-  provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection
 } from '@angular/core';
 import {
@@ -23,9 +22,6 @@ import {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // Error handling
-    provideBrowserGlobalErrorListeners(),
-    
     // Zone.js change detection with event coalescing for better performance
     provideZoneChangeDetection({ eventCoalescing: true }),
     

@@ -1,3 +1,10 @@
 node_modules/
 dist/
 .env
+.agents
+.DS_Store
+.agent/
+.angular
+package-lock.json
+tsconfig.spec.json
+.kilocode

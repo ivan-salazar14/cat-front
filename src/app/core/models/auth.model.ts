@@ -11,14 +11,13 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
+  token: string;
   user: {
     id: string;
     email: string;
     username: string;
   };
-  expiresIn: number;
+  message: string;
 }
 
 export interface TokenPayload {

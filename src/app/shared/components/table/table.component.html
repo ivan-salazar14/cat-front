@@ -5,10 +5,10 @@
         <th 
           *ngFor="let column of columns"
           [class.sortable]="column.sortable && showSorting"
-          (click)="column.sortable && onSort(column.key as string)">
+          (click)="column.sortable && onSort(column.key)">
           {{ column.header }}
           <span *ngIf="column.sortable && showSorting" class="sort-icon">
-            {{ getSortIcon(column.key as string) }}
+            {{ getSortIcon(column.key) }}
           </span>
         </th>
       </tr>
@@ -23,7 +23,7 @@
             <ng-container *ngTemplateOutlet="column.template; context: { $implicit: row }"></ng-container>
           </ng-container>
           <ng-template #defaultValue>
-            {{ getNestedValue(row, column.key as string) }}
+            {{ getNestedValue(row, column.key) }}
           </ng-template>
         </td>
       </tr>

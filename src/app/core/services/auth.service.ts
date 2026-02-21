@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, map } from 'rxjs';
@@ -20,7 +20,7 @@ export class AuthService {
   private isAuthenticatedSignal = computed(() => !!this.currentUserSignal());
 
   readonly currentUser = this.currentUserSignal.asReadonly();
-  readonly isAuthenticated = this.isAuthenticatedSignal.asReadonly();
+  readonly isAuthenticated = this.isAuthenticatedSignal;
 
   constructor() {
     this.loadUserFromStorage();
@@ -62,8 +62,7 @@ export class AuthService {
   }
 
   private handleAuthSuccess(response: AuthResponse): void {
-    localStorage.setItem(this.TOKEN_KEY, response.accessToken);
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, response.refreshToken);
+    localStorage.setItem(this.TOKEN_KEY, response.token);
     localStorage.setItem(this.USER_KEY, JSON.stringify(response.user));
     this.currentUserSignal.set(response.user as unknown as User);
   }
